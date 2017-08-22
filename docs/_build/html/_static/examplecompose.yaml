@@ -1,0 +1,32 @@
+wheezy-php5.4:
+    image: lplhosting/wheezy-php5.4
+    ports:
+      - "8080:80"
+      - "4443:443"
+    volumes:
+      - /your/web/directory/:/var/www/site
+    environment:
+      - "SSMTP_USER=mail@example.com"
+      - "SSMTP_PASSWORD=mailpassword"
+      - "SSMTP_MAILSERVER=mail.example.com:587"
+      - "SSMTP_HOSTNAME=example.com"
+db:
+  image: mariadb:10.1
+  ports:
+      - "3306:3306"
+  environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+      - "MYSQL_USER=dbuser"
+      - "MYSQL_PASSWORD=dbpassword"
+      - "MYSQL_DATABASE=dbname"
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+      - db:db
+  ports:
+      - "9001:80"
+composer:
+  image: composer:latest
+  command: install
+  volumes:
+    - /your/web/directory/composer/:/app

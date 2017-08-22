@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documentation Technique &mdash; documentation Docker </title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Recherche" href="search.html"/>
+    <link rel="top" title="documentation Docker " href="#"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Docker
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Documentation Technique</a><ul>
+<li><a class="reference internal" href="#lancement-dun-environnement-de-developpement">Lancement d’un environnement de développement :</a><ul>
+<li><a class="reference internal" href="#premiere-etape-creation-du-docker-compose">Première étape : Création du docker-compose</a><ul>
+<li><a class="reference internal" href="#a-definition-des-volumes-et-des-variables-denvironnements">a) Définition des volumes et des variables d’environnements</a></li>
+<li><a class="reference internal" href="#b-configuration-de-la-base-de-donnees">b) Configuration de la base de données</a></li>
+<li><a class="reference internal" href="#c-configuration-de-composer">c) Configuration de composer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deuxieme-etape-lancement-des-containers">Deuxième étape&nbsp;: Lancement des containers</a></li>
+<li><a class="reference internal" href="#troisieme-etape-acces-au-site-web">Troisième étape: Accès au site web</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#annexe">Annexe :</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Docker</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Documentation Technique</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation-technique">
+<h1>Documentation Technique<a class="headerlink" href="#documentation-technique" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Cette documentation a été rédigée pour utiliser les environnements de développements web créés avec Docker. Cette solution permet de développer des sites web en utilisant la même plateforme de développement.</p>
+<div class="toctree-wrapper compound">
+</div>
+<img alt="_images/image2.png" class="align-center" src="_images/image2.png" />
+<p>Ce document permet de lancer un environnement de développement composé de containers :</p>
+<blockquote>
+<div><ul class="simple">
+<li>Apache + PHP 5.4 ( ou PHP 5.6 , PHP 7.0 , PHP 7.1)</li>
+<li>MariaDB</li>
+<li>Phpmyadmin</li>
+<li>Composer</li>
+</ul>
+</div></blockquote>
+<p>Prérequis :</p>
+<blockquote>
+<div><ul class="simple">
+<li>Docker doit être installé sur le système hôte .</li>
+<li>Une connexion Internet pour pouvoir récupérer les images en ligne.</li>
+<li>Créer un répertoire ( /votre/répertoire/web ) qui contiendra les fichiers du site.
+Ce répertoire sera partagé avec le container du serveur web.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="lancement-dun-environnement-de-developpement">
+<h2>Lancement d’un environnement de développement :<a class="headerlink" href="#lancement-dun-environnement-de-developpement" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="premiere-etape-creation-du-docker-compose">
+<h3>Première étape : Création du docker-compose<a class="headerlink" href="#premiere-etape-creation-du-docker-compose" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il faut rédiger le fichier docker-compose.yml , ce fichier sert à lancer plusieurs containers en même temps.
+Les containers peuvent communiquer entre eux car Docker créer un réseau privé qui relie les différents containers.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wheezy</span><span class="o">-</span><span class="n">php5</span><span class="o">.</span><span class="mi">4</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">lplhosting</span><span class="o">/</span><span class="n">wheezy</span><span class="o">-</span><span class="n">php5</span><span class="o">.</span><span class="mi">4</span>
+    <span class="n">ports</span><span class="p">:</span>
+      <span class="o">-</span> <span class="s2">&quot;8080:80&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;4443:443&quot;</span>
+    <span class="n">volumes</span><span class="p">:</span>
+      <span class="o">-</span> <span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">web</span><span class="o">/</span><span class="n">directory</span><span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">site</span>
+    <span class="n">environment</span><span class="p">:</span>
+      <span class="o">-</span> <span class="s2">&quot;SSMTP_USER=mail@example.com&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;SSMTP_PASSWORD=mailpassword&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;SSMTP_MAILSERVER=mail.example.com:587&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;SSMTP_HOSTNAME=example.com&quot;</span>
+<span class="n">db</span><span class="p">:</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">mariadb</span><span class="p">:</span><span class="mf">10.1</span>
+  <span class="n">ports</span><span class="p">:</span>
+      <span class="o">-</span> <span class="s2">&quot;3306:3306&quot;</span>
+  <span class="n">environment</span><span class="p">:</span>
+      <span class="o">-</span> <span class="s2">&quot;MYSQL_ROOT_PASSWORD=password&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;MYSQL_USER=dbuser&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;MYSQL_PASSWORD=dbpassword&quot;</span>
+      <span class="o">-</span> <span class="s2">&quot;MYSQL_DATABASE=dbname&quot;</span>
+<span class="n">phpmyadmin</span><span class="p">:</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">phpmyadmin</span><span class="o">/</span><span class="n">phpmyadmin</span>
+  <span class="n">links</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">db</span><span class="p">:</span><span class="n">db</span>
+  <span class="n">ports</span><span class="p">:</span>
+      <span class="o">-</span> <span class="s2">&quot;9001:80&quot;</span>
+<span class="n">composer</span><span class="p">:</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">composer</span><span class="p">:</span><span class="n">latest</span>
+  <span class="n">command</span><span class="p">:</span> <span class="n">install</span>
+  <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">web</span><span class="o">/</span><span class="n">directory</span><span class="o">/</span><span class="n">composer</span><span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">app</span>
+</pre></div>
+</div>
+<p>Le premier container utilise l’image wheezy-php5.4 qui est disponible sur le repo lpl-hosting dans le docker hub. Elle sera récupérée automatiquement lors du lancement des containers.</p>
+<div class="section" id="a-definition-des-volumes-et-des-variables-denvironnements">
+<h4>a) Définition des volumes et des variables d’environnements<a class="headerlink" href="#a-definition-des-volumes-et-des-variables-denvironnements" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Il faut définir les volumes en remplaçant /your/web/directory/ par le répertoire précédemment créé sur le système hôte. Ensuite il faut définir les variables d’environnements  qui seront utilisées pour pouvoir envoyer des mails depuis le site. Il faut utiliser un serveur SMTP externe au container.</p>
+</div>
+<div class="section" id="b-configuration-de-la-base-de-donnees">
+<h4>b) Configuration de la base de données<a class="headerlink" href="#b-configuration-de-la-base-de-donnees" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Le second container lance le service de base de données (Mariadb) , il faut préciser :</p>
+<blockquote>
+<div><ul class="simple">
+<li>le mot de passe de l’utilisateur «&nbsp;root&nbsp;»</li>
+<li>un utilisateur de la base de donnée</li>
+<li>le mot de passe associé à l’utilisateur</li>
+<li>le nom de la base de données.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="c-configuration-de-composer">
+<h4>c) Configuration de composer<a class="headerlink" href="#c-configuration-de-composer" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Le quatrième container permet de gérer les dépendances PHP avec le service Composer.
+Il faut créer un répertoire composer dans le dossier /your/web/directory/ du système hôte.
+Dans ce répertoire il faut créer un fichier composer.json&nbsp;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;require&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;mfacenet/hello-world&quot;</span><span class="p">:</span> <span class="s2">&quot;v1.*&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Ce fichier est un exemple qui permet de déclarer les dépendances PHP du site web.</p>
+<p>Une fois le fichier docker-compose.yml écrit il faut le sauvegarder dans un répertoire du système hôte.</p>
+<p>Remarque&nbsp;: Pour pouvoir changer de serveur web et de version de PHP, il faut remplacer dans le fichier docker-compose.yml&nbsp;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wheezy</span><span class="o">-</span><span class="n">php5</span><span class="o">.</span><span class="mi">4</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">lplhosting</span><span class="o">/</span><span class="n">wheezy</span><span class="o">-</span><span class="n">php5</span><span class="o">.</span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>par</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jessie</span><span class="o">-</span><span class="n">php7</span><span class="o">.</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">lplhosting</span><span class="o">/</span><span class="n">jessie</span><span class="o">-</span><span class="n">php7</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="deuxieme-etape-lancement-des-containers">
+<h3>Deuxième étape&nbsp;: Lancement des containers<a class="headerlink" href="#deuxieme-etape-lancement-des-containers" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour pouvoir lancer les containers il faut se placer dans le dossier qui contient le fichier docker-compose.yml et utiliser la commande :</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
+</pre></div>
+</div>
+<img alt="_images/dockercompose.png" src="_images/dockercompose.png" />
+<p>Docker récupère les images depuis le docker hub et  lance les containers.</p>
+<img alt="_images/dockercompose2.png" src="_images/dockercompose2.png" />
+</div>
+<div class="section" id="troisieme-etape-acces-au-site-web">
+<h3>Troisième étape: Accès au site web<a class="headerlink" href="#troisieme-etape-acces-au-site-web" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Accès au site web à l’adresse: <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a></p>
+<img alt="_images/accesweb.png" src="_images/accesweb.png" />
+<p>Le site est également accessible à l’adresse&nbsp;: <a class="reference external" href="https://localhost:4443/">https://localhost:4443/</a></p>
+<img alt="_images/webhttps.png" src="_images/webhttps.png" />
+</div>
+</div>
+<div class="section" id="annexe">
+<h2>Annexe :<a class="headerlink" href="#annexe" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Fichier utilisé pour créer l’image wheezy-php5.4 :</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">### Image de base ###</span>
+<span class="n">FROM</span> <span class="n">debian</span><span class="p">:</span><span class="n">wheezy</span>
+<span class="c1">### Installation des paquets ###</span>
+<span class="n">RUN</span> <span class="n">echo</span> <span class="s2">&quot;deb http://packages.dotdeb.org wheezy all&quot;</span> <span class="o">&gt;</span>
+<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">dotdeb</span><span class="o">.</span><span class="n">list</span>
+<span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">wget</span>
+<span class="n">RUN</span> <span class="n">wget</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">certificate</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">dotdeb</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dotdeb</span><span class="o">.</span><span class="n">gpg</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="n">dotdeb</span><span class="o">.</span><span class="n">gpg</span>
+<span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> \
+<span class="n">apache2</span> \
+<span class="n">php5</span> \
+<span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">php5</span> \
+<span class="n">ca</span><span class="o">-</span><span class="n">certificates</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">mysqlnd</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">apcu</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">cli</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">common</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">curl</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">dev</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">gd</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">imagick</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">intl</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">json</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">memcached</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">mcrypt</span> \
+<span class="n">php5</span><span class="o">-</span><span class="n">xsl</span> \
+<span class="n">apache2</span><span class="o">-</span><span class="n">mpm</span><span class="o">-</span><span class="n">itk</span> \
+<span class="n">ssmtp</span> \
+<span class="n">rsyslog</span>
+<span class="c1">### Configuration d&#39;Apache ###</span>
+<span class="n">RUN</span> <span class="n">rm</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span> <span class="o">&amp;&amp;</span> \
+<span class="n">mkdir</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">ssl</span>
+<span class="n">WORKDIR</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">ssl</span>
+<span class="c1">### Configuration du certificat auto-signé ###</span>
+<span class="n">RUN</span> <span class="n">openssl</span> <span class="n">genrsa</span> <span class="o">-</span><span class="n">out</span> <span class="n">apache</span><span class="o">.</span><span class="n">key</span> <span class="mi">1024</span> <span class="o">&amp;&amp;</span> \
+<span class="n">openssl</span> <span class="n">req</span> <span class="o">-</span><span class="n">nodes</span> <span class="o">-</span><span class="n">new</span> <span class="o">-</span><span class="n">x509</span> <span class="o">-</span><span class="n">days</span> <span class="mi">365</span> <span class="o">-</span><span class="n">key</span> <span class="n">apache</span><span class="o">.</span><span class="n">key</span> <span class="o">-</span><span class="n">out</span> <span class="n">apache</span><span class="o">.</span><span class="n">crt</span> <span class="o">-</span><span class="n">subj</span> <span class="s2">&quot;/C=FR/ST=ex/L=ex/O=ex/OU=ex/CN=docker-localhost&quot;</span>
+<span class="c1">### On ajoute le fichier info.php et le script apache.sh ###</span>
+<span class="n">COPY</span> <span class="n">info</span><span class="o">.</span><span class="n">php</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span>
+<span class="n">COPY</span> <span class="n">script</span><span class="o">.</span><span class="n">sh</span> <span class="o">/</span>
+<span class="n">COPY</span> <span class="n">status</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">mods</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+<span class="n">COPY</span> <span class="n">default</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+<span class="n">COPY</span> <span class="n">default</span><span class="o">-</span><span class="n">ssl</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span>
+<span class="n">COPY</span> <span class="n">php</span><span class="o">.</span><span class="n">ini</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php5</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span>
+<span class="n">COPY</span> <span class="n">ssmtp</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssmtp</span><span class="o">/</span>
+<span class="c1">### Configuration du module mpm-itk ###</span>
+<span class="n">RUN</span> <span class="n">useradd</span> <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">lpl</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span> <span class="n">lpl</span>
+<span class="c1">### Activation des modules d&#39;Apache ###</span>
+<span class="n">RUN</span> <span class="n">a2enmod</span> <span class="n">ssl</span> <span class="n">status</span> <span class="n">rewrite</span> <span class="n">expires</span>
+<span class="c1">### Activation des vhosts ###</span>
+<span class="n">RUN</span> <span class="n">a2ensite</span>  <span class="n">default</span><span class="o">-</span><span class="n">ssl</span>
+<span class="c1">### ON partage le repertoire .../html  du conteneur ###</span>
+<span class="n">VOLUME</span> <span class="p">[</span><span class="s2">&quot;[/var/www/html]&quot;</span><span class="p">]</span>
+<span class="c1">### On lance le service apache2 ###</span>
+<span class="n">CMD</span> <span class="p">[</span><span class="s2">&quot;bash&quot;</span><span class="p">,</span><span class="s2">&quot;/script.sh&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, lplhosting.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

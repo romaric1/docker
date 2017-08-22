@@ -1,0 +1,2 @@
+wheezy-php5.4:
+    image: lplhosting/wheezy-php5.4
