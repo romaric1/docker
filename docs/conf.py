@@ -45,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Docker'
+project = u'lpldocker'
 copyright = u'2017, lplhosting'
 author = u'lplhosting'
 

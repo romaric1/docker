@@ -1,5 +1,5 @@
-wheezy-php5.4:
-    image: lplhosting/wheezy-php5.4
+jessie-php7.1:
+    image: lplhosting/jessie-php7.1
     ports:
       - "8080:80"
       - "4443:443"
@@ -10,6 +10,7 @@ wheezy-php5.4:
       - "SSMTP_PASSWORD=mailpassword"
       - "SSMTP_MAILSERVER=mail.example.com:587"
       - "SSMTP_HOSTNAME=example.com"
+    privileged: true
 db:
   image: mariadb:10.1
   ports:
@@ -29,4 +30,4 @@ composer:
   image: composer:latest
   command: install
   volumes:
-    - /your/web/directory/composer/:/app
+      - /your/web/directory/composer/:/app
