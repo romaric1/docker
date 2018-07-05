@@ -35,7 +35,39 @@ Première étape : Création du docker-compose
 Il faut créer le fichier docker-compose.yml , ce fichier sert à lancer plusieurs containers en même temps.
 Les containers peuvent communiquer entre eux car Docker créer un réseau privé qui relie les différents containers.
 
-.. literalinclude:: https://github.com/romaric1/docker/blob/master/docs/_static/examplecompose.yaml
+jessie-php7.1:
+    image: lplhosting/jessie-php7.1
+    ports:
+      - "8080:80"
+      - "4443:443"
+    volumes:
+      - /your/web/directory/:/var/www/site
+    environment:
+      - "SSMTP_USER=mail@example.com"
+      - "SSMTP_PASSWORD=mailpassword"
+      - "SSMTP_MAILSERVER=mail.example.com:587"
+      - "SSMTP_HOSTNAME=example.com"
+    privileged: true
+db:
+  image: mariadb:10.1
+  ports:
+      - "3306:3306"
+  environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+      - "MYSQL_USER=dbuser"
+      - "MYSQL_PASSWORD=dbpassword"
+      - "MYSQL_DATABASE=dbname"
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+      - db:db
+  ports:
+      - "9001:80"
+composer:
+  image: composer:latest
+  command: install
+  volumes:
+      - /your/web/directory/composer/:/app
 
 
 Le premier container utilise l’image jessie-php7.1 qui est disponible sur le repo lpl-hosting dans le docker hub. Elle sera récupérée automatiquement lors du lancement des containers.
@@ -65,7 +97,11 @@ Le quatrième container permet de gérer les dépendances PHP avec le service Co
 Il faut créer un répertoire composer dans le dossier /your/web/directory/ du système hôte.
 Dans ce répertoire il faut créer un fichier composer.json :
 
-.. literalinclude:: _static/composer.json
+{
+    "require": {
+        "mfacenet/hello-world": "v1.*"
+    }
+}
 
 Ce fichier est un exemple qui permet de déclarer les dépendances PHP du site web.
 
@@ -73,11 +109,13 @@ Une fois le fichier docker-compose.yml écrit il faut le sauvegarder dans un ré
 
 Remarque : Pour pouvoir changer de serveur web et de version de PHP, il faut remplacer dans le fichier docker-compose.yml :
 
-.. literalinclude:: _static/code1.yaml
+jessie-php7.1:
+    image: lplhosting/jessie-php7.1
 
 par
 
-.. literalinclude:: _static/code2.yaml
+jessie-php7.0:
+    image: lplhosting/jessie-php7.0
 
 
 Deuxième étape : Lancement des containers
@@ -85,7 +123,7 @@ Deuxième étape : Lancement des containers
 Pour pouvoir lancer les containers il faut se placer dans le dossier qui contient le fichier docker-compose.yml et utiliser la commande :
 ::
 	
-	docker-compose up
+docker-compose up
 
 
 Docker récupère les images depuis le docker hub et  lance les containers.
