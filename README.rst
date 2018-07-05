@@ -35,7 +35,7 @@ Première étape : Création du docker-compose
 Il faut créer le fichier docker-compose.yml , ce fichier sert à lancer plusieurs containers en même temps.
 Les containers peuvent communiquer entre eux car Docker créer un réseau privé qui relie les différents containers.
 
-.. literalinclude:: _static/examplecompose.yaml
+.. literalinclude:: https://github.com/romaric1/docker/blob/master/docs/_static/examplecompose.yaml
 
 
 Le premier container utilise l’image jessie-php7.1 qui est disponible sur le repo lpl-hosting dans le docker hub. Elle sera récupérée automatiquement lors du lancement des containers.
