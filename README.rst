@@ -6,9 +6,7 @@ Documentation sur les environnements Web Docker
 Cette documentation a été rédigée pour créer des environnements de développement à l'aide de containers Docker. Ansi, plusieurs développeurs utilisent le même environnement de développement.
 
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+
 
 .. image:: https://raw.githubusercontent.com/romaric1/docker/master/docs/_build/html/_images/image2.png
    :align: center
@@ -92,17 +90,17 @@ Pour pouvoir lancer les containers il faut se placer dans le dossier qui contien
 
 Docker récupère les images depuis le docker hub et  lance les containers.
 
-.. image:: _static/dockercompose2.png
+.. image:: https://raw.githubusercontent.com/romaric1/docker/master/docs/_build/html/_images/dockercompose2.png
 
 Troisième étape : Accès au site web
 -----------------------------------
 Accès au site web à l’adresse: http://localhost:8080/
 
-.. image:: _static/accesweb.png
+.. image:: https://raw.githubusercontent.com/romaric1/docker/master/docs/_build/html/_images/accesweb.png
 
 Le site est également accessible en https à l’adresse : https://localhost:4443/
 
-.. image:: _static/webhttps.png
+.. image:: https://raw.githubusercontent.com/romaric1/docker/master/docs/_build/html/_images/webhttps.png
 
 Conclusion
 ==========
