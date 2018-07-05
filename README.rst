@@ -10,7 +10,7 @@ Cette documentation a été rédigée pour créer des environnements de dévelop
    :maxdepth: 2
    :caption: Contents:
 
-.. image:: _static/image2.png 
+.. image:: https://raw.githubusercontent.com/romaric1/docker/master/docs/_build/html/_images/image2.png
    :align: center
 
 Ce document permet de lancer un environnement de développement composé de containers :
